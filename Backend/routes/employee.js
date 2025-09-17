@@ -1,11 +1,19 @@
 import express from "express";
+import { 
+  getAllEmployee, 
+  getEmployee, 
+  createEmployee, 
+  deleteEmployee, 
+  updateEmployee 
+} from "../controllers/employee.js";
 
+import verifyJWT from "./utils/verifyJWT.js";
 
-import { getAllEmployee, getEmployee, createEmployee, deleteEmployee, updateEmployee } from "../controllers/employee.js";
 
 const router = express.Router();
 
-router.get("/", getAllEmployee);
+// ✅ Protect "get all employees" with JWT
+router.get("/", verifyJWT, getAllEmployee);
 
 router.post("/", createEmployee);
 
@@ -16,3 +24,4 @@ router.delete("/:id", deleteEmployee);
 router.put("/:id", updateEmployee);
 
 export default router;
+
